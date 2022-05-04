@@ -1,0 +1,28 @@
+<div class="container user">
+    <div class="user-block">
+        <div class="user-title-block">
+            <div class="user-photo"></div>
+            <p class="user-name">{{nickName}}</p>
+        </div>
+        <div class="user-info-block">
+            {{#each input}}
+                {{{this}}}
+            {{/each}}
+            {{#each info}}
+                {{{this}}}
+            {{/each}}
+        </div>
+        <div class="user-edit-block">
+            {{#each links}}
+                <div class="user-edit-item">
+                    <a class="user-edit-text {{this.class}}" href="{{this.link}}">{{this.text}}</a>
+                </div>
+            {{/each}}
+        </div>
+        {{#if save}}
+            <div class="user-save">
+                <button class="button-save">Сохранить</button>
+            </div>
+        {{/if}}
+    </div>
+</div>

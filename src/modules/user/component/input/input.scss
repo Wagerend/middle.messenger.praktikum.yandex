@@ -1,0 +1,30 @@
+.user-info{
+    border-bottom: 1px solid #EAEAEA;
+    padding: 10px 0px;
+    display: flex;
+    justify-content: space-between;
+
+    .info-title{
+        font-style: normal;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 13px;
+        color: #1E1E1E;
+    }
+
+    .info-input-item{
+        font-style: normal;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 13px;
+        text-align: right;
+        color: #999999;
+        border: none;
+        outline: none;
+        width: 50%;
+    }
+
+    &:last-child{
+        border: none;
+    }
+}
