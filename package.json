@@ -10,7 +10,7 @@
   "keywords": [],
   "author": "Mishenko Vladislav",
   "license": "ISC",
-  "assest": "_redirects",
+  "assest": ["_redirects"],
   "devDependencies": {
     "@parcel/transformer-inline-string": "^2.4.1",
     "@parcel/transformer-sass": "^2.4.1",
