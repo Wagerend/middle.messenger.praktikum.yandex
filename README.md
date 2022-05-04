@@ -4,14 +4,14 @@
 
 ## Карта проекта
 ---
-- Авторизация
-- Регистрация
-- Профиль
-- Редактирование профиля
-- Смена пароля 
-- 404
-- 500
-- Главная (заглушка)
+- [Авторизация](https://wagerend.netlify.app/login)
+- [Регистрация](https://wagerend.netlify.app/signin)
+- [Профиль](https://wagerend.netlify.app/user)
+- [Редактирование профиля](https://wagerend.netlify.app/edit)
+- [Смена пароля](https://wagerend.netlify.app/editPassword)
+- [404](https://wagerend.netlify.app/not)
+- [500](https://wagerend.netlify.app/500)
+- [Главная (заглушка)](https://wagerend.netlify.app/)
 
 ## Технологии
 ---
