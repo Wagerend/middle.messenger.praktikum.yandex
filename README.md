@@ -21,6 +21,7 @@
 - Parcel
 
 ## [Pull Request](https://github.com/Wagerend/middle.messenger.praktikum.yandex/pull/1)
+
 ## Установка
 ---
 Что бы установить проект достаточно выполнить 3 команды последовательно в корне проекта
