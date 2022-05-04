@@ -3,6 +3,4 @@
   command = "npm run build"
 
 [[redirect]]
-from = "/*"
-to = "dist/index.html"
-status = 200
+/*    /index.html  200
