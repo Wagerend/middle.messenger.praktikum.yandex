@@ -3,7 +3,6 @@
 Простое веб приложение с использованием шаблонизатора. На данном этапе реализована верстка проекта.  
 
 ## Карта проекта
----
 - [Авторизация](https://wagerend.netlify.app/login)
 - [Регистрация](https://wagerend.netlify.app/signin)
 - [Профиль](https://wagerend.netlify.app/user)
@@ -21,6 +20,7 @@
 - NodeJS Express
 - Parcel
 
+## [Pull Request](https://github.com/Wagerend/middle.messenger.praktikum.yandex/pull/1)
 ## Установка
 ---
 Что бы установить проект достаточно выполнить 3 команды последовательно в корне проекта
