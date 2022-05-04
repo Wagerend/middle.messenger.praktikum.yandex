@@ -20,7 +20,7 @@
 - NodeJS Express
 - Parcel
 
-## [Pull Request](https://github.com/Wagerend/middle.messenger.praktikum.yandex/pull/1)
+## [Pull Request](https://github.com/Wagerend/middle.messenger.praktikum.yandex/pull/2)
 
 ## Установка
 ---
