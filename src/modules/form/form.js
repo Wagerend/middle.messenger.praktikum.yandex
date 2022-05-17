@@ -2,11 +2,11 @@ import Handlebars from 'handlebars';
 import tmpl from 'bundle-text:./form.hbs';
 import './form.scss';
 
-import Input from './component/input/input';
+import {Input} from './component/input/input';
 
 Handlebars.registerPartial('login', tmpl);
 
-export default (() => {
+export const Form = (() => {
 
     let data = {}
 

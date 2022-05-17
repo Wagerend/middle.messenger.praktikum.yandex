@@ -4,7 +4,7 @@ import './input.scss';
 
 Handlebars.registerPartial('user-info-input', tmpl);
 
-export default (() => {
+export const Input = (() => {
 
     let data = {}
 

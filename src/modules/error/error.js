@@ -4,7 +4,7 @@ import './error.scss';
 
 Handlebars.registerPartial('error', tmpl);
 
-export default (() => {
+export const Error = (() => {
 
     let data = {};
 

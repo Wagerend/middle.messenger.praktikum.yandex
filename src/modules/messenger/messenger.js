@@ -4,7 +4,7 @@ import './messenger.scss';
 
 Handlebars.registerPartial('messenger', tmpl);
 
-export default (() => {
+export const Messenger = (() => {
 
     let data = {}
 

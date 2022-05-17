@@ -1,3 +1,5 @@
+@import '../../../../index.scss';
+
 .input-group{
     position: relative;
     margin: 15px 0px;
@@ -12,7 +14,7 @@
         font-weight: 500;
         font-size: 13px;
         line-height: 13px;
-        color: #999999;
+        color: $grey;
     }
     .ig-item{
         width: 100%;
@@ -21,10 +23,10 @@
         padding: 7px 0px;
         border: none;
         outline: none;
-        border-bottom: 1px solid #3369F3;
+        border-bottom: 1px solid $mainColor;
     }
     .ig-item::-webkit-input-placeholder {
-        color: #999999;
+        color: $grey;
         font-family: 'Nunito',sans-serif;
     }
 }

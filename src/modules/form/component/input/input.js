@@ -5,7 +5,13 @@ import './input.scss';
 Handlebars.registerPartial('form-input',tmpl);
 
 document.addEventListener('DOMContentLoaded', function(){
-    document.querySelectorAll('.ig-item').forEach(function(item){
+    const tag = document.querySelectorAll('.ig-item');
+
+    if(!tag){
+        return;
+    };
+
+    tag.forEach(function(item){
         item.onkeyup = function(){
             let title = this.parentNode.querySelector('.ig-title');
             if(this.value != '')
@@ -16,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 });
 
-export default (()=>{
+export const Input = (()=>{
 
     let data = {};
 

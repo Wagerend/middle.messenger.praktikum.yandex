@@ -1,5 +1,7 @@
+@import '../../../../index.scss';
+
 .user-info{
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid $background;
     padding: 10px 0px;
     display: flex;
     justify-content: space-between;
@@ -9,7 +11,7 @@
         font-weight: 500;
         font-size: 13px;
         line-height: 13px;
-        color: #1E1E1E;
+        color: $black;
     }
     .info-item{
         font-style: normal;
@@ -17,7 +19,7 @@
         font-size: 13px;
         line-height: 13px;
         text-align: right;
-        color: #999999;
+        color: $grey;
     }
     &:last-child{
         border: none;

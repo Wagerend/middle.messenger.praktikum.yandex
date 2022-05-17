@@ -4,7 +4,7 @@ import './line.scss';
 
 Handlebars.registerPartial('user-info-line', tmpl);
 
-export default (() => {
+export const Line = (() => {
 
     let data = {}
 

@@ -1,3 +1,5 @@
+@import '../../index.scss';
+
 .container.form{
     font-family: 'Nunito',sans-serif;
     max-width:340px;
@@ -10,8 +12,8 @@
     align-items: center;
 
     .form-block{
-        background: #FFFFFF;
-        box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+        background: $white;
+        box-shadow: 0px 0px 6px $shadow;
         border-radius: 12px;
         width:100%;
         padding: 50px 30px 30px 30px;
@@ -26,7 +28,7 @@
             font-size: 20px;
             line-height: 20px;
             text-align: center;                    
-            color: #1E1E1E;
+            color: $black;
         }
 
         .input-block{
@@ -42,21 +44,21 @@
 
             .button-item{
                 width: 100%;
-                background: #3369F3;
+                background: $mainColor;
                 border-radius: 8px;
-                border:1px solid #3369F3;
+                border:1px solid $mainColor;
                 font-family: 'Nunito',sans-serif;
                 font-weight: 500;
                 font-size: 13px;
                 line-height: 13px;
                 text-align: center;
-                color: #FFFFFF;
+                color: $white;
                 cursor: pointer;
                 padding: 12px;
                 margin-bottom: 7px;
 
                 &:hover{
-                    background-color: #2d5edc;
+                    background-color: $mainColorBack;
                 }
             }
 
@@ -67,7 +69,7 @@
                 font-size: 11px;
                 line-height: 11px;
                 text-align: center;
-                color: #3369F3;
+                color: $mainColor;
                 text-decoration: none;
             }
 
