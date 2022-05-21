@@ -1,10 +1,10 @@
 import Handlebars from 'handlebars';
-import tmpl from 'bundle-text:./form.hbs';
+import Template from './form.hbs';
 import './form.scss';
 
 import {Input} from './component/input/input';
 
-Handlebars.registerPartial('login', tmpl);
+Handlebars.registerPartial('login', Template);
 
 export const Form = (() => {
 
@@ -16,7 +16,7 @@ export const Form = (() => {
     };
 
     const compile = function(){
-        return Handlebars.compile(tmpl)(data);
+        return Template(data);
     };
 
     return{

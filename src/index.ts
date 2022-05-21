@@ -6,7 +6,7 @@ import {Messenger}  from './modules/messenger/messenger';
 
 const Routing = (() => {
 
-    const getTemplate = function(){
+    const getTemplate = function():any{
         let url = getPathName();
         switch(url){
             case '/':
@@ -45,5 +45,7 @@ const Routing = (() => {
         getPathName,
     };
 })();
-
-document.getElementById('TM').innerHTML = Routing.getTemplate();
+const tag: HTMLElement | null = document.getElementById('TM');
+if(tag !== null){
+    tag.innerHTML = Routing.getTemplate();
+}

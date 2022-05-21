@@ -1,8 +1,8 @@
 import Handlebars from 'handlebars';
-import tmpl from 'bundle-text:./input.hbs';
+import Template from './input.hbs';
 import './input.scss';
 
-Handlebars.registerPartial('form-input',tmpl);
+Handlebars.registerPartial('form-input', Template);
 
 document.addEventListener('DOMContentLoaded', function(){
     const tag = document.querySelectorAll('.ig-item');
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function(){
         return;
     };
 
-    tag.forEach(function(item){
+    tag.forEach(function(item: any){
         item.onkeyup = function(){
             let title = this.parentNode.querySelector('.ig-title');
             if(this.value != '')
@@ -32,7 +32,7 @@ export const Input = (()=>{
     };
 
     const compile = function(){
-        return Handlebars.compile(tmpl)(data);
+        return Template(data);
     };
 
     return{

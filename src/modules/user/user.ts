@@ -1,11 +1,11 @@
 import Handlebars from 'handlebars';
-import tmpl from 'bundle-text:./user.hbs';
+import Template from './user.hbs';
 import './user.scss';
 
 import {Line} from './component/line/line';
 import {Input} from './component/input/input';
 
-Handlebars.registerPartial('user', tmpl);
+Handlebars.registerPartial('user', Template);
 
 export const User = (() => {
 
@@ -17,7 +17,7 @@ export const User = (() => {
     };
 
     const compile = function(){
-        return Handlebars.compile(tmpl)(data);
+        return Template(data);
     };
 
     return{

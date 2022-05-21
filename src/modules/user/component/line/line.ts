@@ -1,8 +1,8 @@
 import Handlebars from 'handlebars';
-import tmpl from 'bundle-text:./line.hbs';
+import Template from './line.hbs';
 import './line.scss';
 
-Handlebars.registerPartial('user-info-line', tmpl);
+Handlebars.registerPartial('user-info-line', Template);
 
 export const Line = (() => {
 
@@ -14,7 +14,7 @@ export const Line = (() => {
     };
 
     const compile = function(){
-        return Handlebars.compile(tmpl)(data);
+        return Template(data);
     };
 
     return{

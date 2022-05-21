@@ -1,10 +1,10 @@
 import Handlebars from 'handlebars';
-import tmpl from 'bundle-text:./messenger.hbs';
-import './messenger.scss';
+import Template from './input.hbs';
+import './input.scss';
 
-Handlebars.registerPartial('messenger', tmpl);
+Handlebars.registerPartial('user-info-input', Template);
 
-export const Messenger = (() => {
+export const Input = (() => {
 
     let data = {}
 
@@ -14,7 +14,7 @@ export const Messenger = (() => {
     };
 
     const compile = function(){
-        return Handlebars.compile(tmpl)(data);
+        return Template(data);
     };
 
     return{

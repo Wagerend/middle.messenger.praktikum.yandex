@@ -1,8 +1,8 @@
 import Handlebars from 'handlebars';
-import tmpl from 'bundle-text:./error.hbs';
+import Template from './error.hbs';
 import './error.scss';
 
-Handlebars.registerPartial('error', tmpl);
+Handlebars.registerPartial('error', Template);
 
 export const Error = (() => {
 
@@ -14,7 +14,7 @@ export const Error = (() => {
     };
 
     const compile = function(){
-        return Handlebars.compile(tmpl)(data);
+        return Template(data);
     };
 
     return{
