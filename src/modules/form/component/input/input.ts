@@ -1,4 +1,5 @@
 import Handlebars from 'handlebars';
+import { Block } from '../../../../servises/block/block';
 import Template from './input.hbs';
 import './input.scss';
 
@@ -20,24 +21,23 @@ document.addEventListener('DOMContentLoaded', function(){
                 title.hidden = true;
         };
     });
+
 });
 
-export const Input = (()=>{
+type InputProps ={
+    title: string;
+    type: string;
+    name: string;
+}
 
-    let data = {};
+export class Input extends Block{
 
-    const set = function(context){
-        data = context;
-        return this;
-    };
+    constructor(props: InputProps){
+        super('div', props);
+    }
 
-    const compile = function(){
-        return Template(data);
-    };
+    render(): string {
+        return Template(this.props);
+    }
 
-    return{
-        compile,
-        set,
-    };
-    
-})();
+}

@@ -1,25 +1,23 @@
 import Handlebars from 'handlebars';
+import { Block } from '../../../../servises/block/block';
 import Template from './line.hbs';
 import './line.scss';
 
 Handlebars.registerPartial('user-info-line', Template);
 
-export const Line = (() => {
+type LineProps ={
+    title: string,
+    name: string,
+}
 
-    let data = {}
+export class Line extends Block{
 
-    const set = function(context){
-        data = context;
-        return this;
-    };
+    constructor(props: LineProps){
+        super('div', props);
+    }
 
-    const compile = function(){
-        return Template(data);
-    };
+    render(): string {
+        return Template(this.props);
+    }
 
-    return{
-        set,
-        compile,
-    };
-
-})();
+}

@@ -1,4 +1,5 @@
-import { EventBus } from "./event-bus"
+import { EventBus } from "./event-bus";
+import {v4 as makeUUID} from 'uuid';
 
 interface IBlock{
     init(): void;
@@ -25,23 +26,54 @@ export class Block implements IBlock{
         tagName:string,
         props:Record<string, any>
     };
+    _id: string;
     props: Record<string,any> | null;
     eventBus: () => EventBus;
     _element: HTMLElement;
+    children: Record<string, Block>;
 
-    constructor(tagName: string = "div", props: Record<string,unknown> = {}){
+    constructor(tagName: string = "div", propsAndChildren: Record<string,any> = {}){
+
+        const { children, props} = this._getChildren(propsAndChildren);
+
+        this.children = children;
+
         this._data = {
             tagName,
             props
-        }
+        };
 
-        this.props = this._makePropsProxy(props);
+        this._id = makeUUID();
+
+        this.props = this._makePropsProxy({
+            ...props,
+            __id: this._id,
+        });
 
         const eventBus = new EventBus();
         this.eventBus = () => eventBus;
         this._registerEvents(eventBus);
         eventBus.emit(Block.EVENTS.INIT);
     };
+
+    _getChildren(propsAndChildren: Record<string, any>) {
+        const children: Record<string, any> = {};
+        const props: Record<string, any> = {};
+
+        Object.entries(propsAndChildren)
+            .forEach(([key, value]) => {
+                if (value instanceof Block) {
+                    children[key] = value;
+                } else {
+                    props[key] = value;
+                }
+            });
+
+        return {
+            children,
+            props,
+        };
+    }
 
     _registerEvents(eventBus:EventBus): void{
         eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
@@ -66,6 +98,9 @@ export class Block implements IBlock{
 
     _componentDidMount(): void{
         this.componentDidMount();
+        Object.values(this.children).forEach((child:any) => {
+            child.dispatchComponentDidMount();
+        });
     }
 
     componentDidMount(): void{
@@ -102,6 +137,27 @@ export class Block implements IBlock{
         this._element.innerHTML = block;
     }
     render(){}
+    
+    compile(template: (context: any) => string, props: any) {
+
+        Object.entries(this.children).forEach(([key, child]) => {
+            props[key] = `<div data-id="id-${child._id}"></div>`
+        });
+
+        const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
+        fragment.innerHTML = template(props);
+
+        Object.values(this.children).forEach(child => {
+            const stub = fragment.content.querySelector(`[data-id="id-${child._id}"]`);
+            if (!stub) {
+                return
+            }
+
+            stub.replaceWith(child.getContent()!);
+        });
+
+        return fragment.content;
+    }
 
     _makePropsProxy(props: Record<string, any>): Record<string, any>{
         const self = this;

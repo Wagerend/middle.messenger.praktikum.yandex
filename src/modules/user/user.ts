@@ -2,71 +2,78 @@ import Handlebars from 'handlebars';
 import Template from './user.hbs';
 import './user.scss';
 
-import {Line} from './component/line/line';
-import {Input} from './component/input/input';
+import { Line } from './component/line/line';
+import { Input } from './component/input/input';
+import { Block } from '../../servises/block/block';
 
 Handlebars.registerPartial('user', Template);
 
-export const User = (() => {
+export class User extends Block{
 
-    let data = {};
+    constructor(props: UserProps){
+        super('div', props);
+    }
 
-    const set = function(context){
-        data = context;
-        return this;
-    };
+    render(): string {
+        return Template(this.props);
+    }
 
-    const compile = function(){
-        return Template(data);
-    };
+}
 
-    return{
-        set,
-        compile,
-    };
+type UserProps = {
+    nickName: string,
+    info?: Record<string, string>,
+    input?: Record<string, string>,
+    save: boolean,
+    links?: Array<link>,
+}
 
-})();
+type link = {
+    link: string,
+    text: string,
+    class?: string,
+}
 
 export const DefaultData = (() => {
     let editInfo = {
         nickName:'Иван',
         input:{
-            email:Input.set({
+            email: new Input({
                 title:'Почта',
                 type:'text',
                 name:'email',
                 value:'pochta@russia.ru',
-            }).compile(),
-            login:Input.set({
+            }).render(),
+            login: new Input({
                 title:'Логин',
                 type:'text',
                 name:'login',
                 value:'IvanIvanov',
-            }).compile(),
-            firstName:Input.set({
+            }).render(),
+            firstName: new Input({
                 title:'Имя',
                 type:'text',
                 name:'first_name',
                 value:'Иван',
-            }).compile(),
-            secondName:Input.set({
+            }).render(),
+            secondName: new Input({
                 title:'Фамилия',
                 type:'text',
                 name:'second_name',
                 value:'Иванов',
-            }).compile(),
-            nickName:Input.set({
+            }).render(),
+            nickName: new Input({
                 title:'Имя в чате',
                 type:'text',
                 name:'display_name',
                 value:'Иван',
-            }).compile(),
-            phone:Input.set({
+            }).render(),
+            phone: new Input({
                 title:'Телефон',
                 type:'text',
                 name:'phone',
                 value:'8 (800) 555 35 35',
-            }).compile(),
+            }).render(),
         },
         save: true,
     };
@@ -74,24 +81,24 @@ export const DefaultData = (() => {
     let editPassword ={
         nickName:'Иван',
         input:{
-            oldPassword:Input.set({
+            oldPassword: new Input({
                 title:'Старый пароль',
                 type:'password',
                 name:'oldPassword',
                 value:'',
-            }).compile(),
-            newPassword:Input.set({
+            }).render(),
+            newPassword: new Input({
                 title:'Новый пароль',
                 type:'password',
                 name:'newPassword',
                 value:'',
-            }).compile(),
-            confirmPassword:Input.set({
+            }).render(),
+            confirmPassword: new Input({
                 title:'Повторите новый пароль',
                 type:'password',
                 name:'',
                 value:'',
-            }).compile(),
+            }).render(),
         },
         save: true,
     }
@@ -99,30 +106,30 @@ export const DefaultData = (() => {
     let user = {
         nickName:'Иван',
         info:{
-            email:Line.set({
+            email: new Line({
                 title:'Почта',
                 name:'pochta@russia.ru',
-            }).compile(),
-            login:Line.set({
+            }).render(),
+            login: new Line({
                 title:'Логин',
                 name:'IvanIvanov',
-            }).compile(),
-            firstName:Line.set({
+            }).render(),
+            firstName: new Line({
                 title:'Имя',
                 name:'Иван',
-            }).compile(),
-            secondName:Line.set({
+            }).render(),
+            secondName: new Line({
                 title:'Фамилия',
                 name:'Иванов',
-            }).compile(),
-            nickName:Line.set({
+            }).render(),
+            nickName: new Line({
                 title:'Имя в чате',
                 name:'Иван',
-            }).compile(),
-            Phone:Line.set({
+            }).render(),
+            Phone: new Line({
                 title:'Телефон',
                 name:'8 (800) 555 35 35',
-            }).compile(),
+            }).render(),
         },
         links:[{
             link: '/edit',

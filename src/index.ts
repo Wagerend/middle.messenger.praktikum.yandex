@@ -13,25 +13,25 @@ const Routing = (() => {
                 return Messenger.compile();
                 break;
             case '/login':
-                return Form.set(FormData.login).compile();
+                return new Form(FormData.login).render();
                 break;
             case '/signin': 
-                return Form.set(FormData.signin).compile();
+                return new Form(FormData.signin).render();
                 break;
             case '/user': 
-                return User.set(UserData.user).compile();
+                return new User(UserData.user).render();
                 break;
             case '/edit': 
-                return User.set(UserData.editInfo).compile();
+                return new User(UserData.editInfo).render();
                 break;
             case '/editPassword': 
-                return User.set(UserData.editPassword).compile();
+                return new User(UserData.editPassword).render();
                 break;
             case '/500': 
-                return Error.set(ErrorData.serverError).compile();
+                return new Error(ErrorData.serverError).render();
                 break;
             default:
-                return Error.set(ErrorData.notFound).compile();
+                return new Error(ErrorData.notFound).render();
                 break;
         };
     };

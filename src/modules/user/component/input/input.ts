@@ -1,25 +1,25 @@
 import Handlebars from 'handlebars';
+import { Block } from '../../../../servises/block/block';
 import Template from './input.hbs';
 import './input.scss';
 
 Handlebars.registerPartial('user-info-input', Template);
 
-export const Input = (() => {
+type InputProps ={
+    title: string;
+    type: string;
+    name: string;
+    value: string;
+}
 
-    let data = {}
+export class Input extends Block{
 
-    const set = function(context){
-        data = context;
-        return this;
-    };
+    constructor(props: InputProps){
+        super('div', props);
+    }
 
-    const compile = function(){
-        return Template(data);
-    };
+    render(): string {
+        return Template(this.props);
+    }
 
-    return{
-        set,
-        compile,
-    };
-
-})();
+}

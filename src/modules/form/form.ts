@@ -3,42 +3,43 @@ import Template from './form.hbs';
 import './form.scss';
 
 import {Input} from './component/input/input';
+import { Block } from '../../servises/block/block';
 
 Handlebars.registerPartial('login', Template);
 
-export const Form = (() => {
+type FormProps = {
+    template: string,
+    title: string,
+    inputBlock: Record<string,string>,
+    buttonTitle:string;
+    link: Record<string,string>
+};
 
-    let data = {}
+export class Form extends Block{
 
-    const set = function(context){
-        data = context;
-        return this;
-    };
+    constructor(props: FormProps){
+        super('div', props);
+    }
 
-    const compile = function(){
-        return Template(data);
-    };
+    render(): string {
+        return Template(this.props);
+    }
 
-    return{
-        set,
-        compile,
-    };
-
-})();
+}
 
 export const DefaultData = (() => {
 
-    let inputLogin = Input.set({
+    let inputLogin = new Input({
         title:'Логин',
         type:'text',
         name:'login',
-    }).compile();
+    }).render();
 
-    let inputPassword = Input.set({
+    let inputPassword = new Input({
         title:'Пароль',
         type:'password',
         name:'password',
-    }).compile();
+    }).render();
 
     const login = {
         template:'login',
@@ -56,35 +57,35 @@ export const DefaultData = (() => {
 
 
 
-    let inputEmail = Input.set({
+    let inputEmail = new Input({
         title:'Почта',
         type:'text',
         name:'email',
-    }).compile();
+    }).render();
 
-    let inputFirstName = Input.set({
+    let inputFirstName = new Input({
         title:'Имя',
         type:'text',
         name:'first_name',
-    }).compile();
+    }).render();
 
-    let inputSecondName = Input.set({
+    let inputSecondName = new Input({
         title:'Фамилия',
         type:'text',
         name:'second_name',
-    }).compile();
+    }).render();
 
-    let inputPhone = Input.set({
+    let inputPhone = new Input({
         title:'Телефон',
         type:'text',
         name:'phone',
-    }).compile();
+    }).render();
 
-    let inputComplitePassword = Input.set({
+    let inputComplitePassword = new Input({
         title:'Пароль (ещё раз)',
         type:'password',
         name:'',
-    }).compile();
+    }).render();
 
 
     const signin = {

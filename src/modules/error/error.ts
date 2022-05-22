@@ -1,28 +1,26 @@
 import Handlebars from 'handlebars';
+import { Block } from '../../servises/block/block';
 import Template from './error.hbs';
 import './error.scss';
 
 Handlebars.registerPartial('error', Template);
 
-export const Error = (() => {
+type ErrorProps = {
+    code:string;
+    text:string;
+}
 
-    let data = {};
+export class Error extends Block{
 
-    const set = function(context){
-        data = context;
-        return this;
-    };
+    constructor(props: ErrorProps){
+        super('div', props);
+    }
 
-    const compile = function(){
-        return Template(data);
-    };
+    render(): string {
+        return Template(this.props);
+    }
 
-    return{
-        set,
-        compile,
-    };
-
-})();
+}
 
 export const DefaultData = (() => {
     
