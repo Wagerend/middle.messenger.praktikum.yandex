@@ -1,11 +1,15 @@
 <div class="container form">
     <div class="form-block {{template}}">
         <h1 class="form-title">{{title}}</h1>
-        <div class="input-block">
-            {{#each inputBlock}}
-                {{{this}}}
-            {{/each}}
-        </div>
+        <form id="{{formId}}" class="input-block">
+            {{{inputEmail}}}
+            {{{inputLogin}}}
+            {{{inputFirstName}}}
+            {{{inputSecondName}}}
+            {{{inputPhone}}}
+            {{{inputPassword}}}
+            {{{inputComplitePassword}}}
+        </form>
         <div class="button-block">
             <button class="button-item" type="button">{{buttonTitle}}</button>
             <a class="link-item" href="{{link/href}}">{{link/title}}</a>

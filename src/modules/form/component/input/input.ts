@@ -28,6 +28,7 @@ type InputProps ={
     title: string;
     type: string;
     name: string;
+    events?: Record<string,Function>;
 }
 
 export class Input extends Block{
@@ -36,8 +37,8 @@ export class Input extends Block{
         super('div', props);
     }
 
-    render(): string {
-        return Template(this.props);
+    render(): DocumentFragment {
+        return this.compile(Template, this.props);
     }
 
 }

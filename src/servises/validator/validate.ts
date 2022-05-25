@@ -21,8 +21,12 @@ export const regular = (()=>{
         return regular.login.test(value);
     }
 
-    const password = function(firstValue: string, secondValue){
-        return regular.password.test(firstValue) && firstValue === secondValue;
+    const password = function(firstValue: string){
+        return regular.password.test(firstValue);
+    }
+    
+    const complitePassword = function(password){
+
     }
 
     const phone = function(value: string){

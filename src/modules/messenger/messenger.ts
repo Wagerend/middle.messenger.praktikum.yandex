@@ -1,25 +1,18 @@
 import Handlebars from 'handlebars';
-import tmpl from './messenger.hbs';
+import { Block } from '../../servises/block/block';
+import Template from './messenger.hbs';
 import './messenger.scss';
 
-Handlebars.registerPartial('messenger', tmpl);
+Handlebars.registerPartial('messenger', Template);
 
-export const Messenger = (() => {
+export class Messenger extends Block{
 
-    let data = {}
+    constructor(props: any){
+        super('div', props);
+    }
 
-    const set = function(context){
-        data = context;
-        return this;
-    };
+    render(): DocumentFragment {
+        return this.compile(Template, this.props);
+    }
 
-    const compile = function(){
-        return tmpl(data);
-    };
-
-    return{
-        set,
-        compile,
-    };
-
-})();
+}

@@ -14,8 +14,8 @@ export class User extends Block{
         super('div', props);
     }
 
-    render(): string {
-        return Template(this.props);
+    render(): DocumentFragment {
+        return this.compile(Template, this.props);
     }
 
 }
@@ -43,37 +43,37 @@ export const DefaultData = (() => {
                 type:'text',
                 name:'email',
                 value:'pochta@russia.ru',
-            }).render(),
+            }),
             login: new Input({
                 title:'Логин',
                 type:'text',
                 name:'login',
                 value:'IvanIvanov',
-            }).render(),
+            }),
             firstName: new Input({
                 title:'Имя',
                 type:'text',
                 name:'first_name',
                 value:'Иван',
-            }).render(),
+            }),
             secondName: new Input({
                 title:'Фамилия',
                 type:'text',
                 name:'second_name',
                 value:'Иванов',
-            }).render(),
+            }),
             nickName: new Input({
                 title:'Имя в чате',
                 type:'text',
                 name:'display_name',
                 value:'Иван',
-            }).render(),
+            }),
             phone: new Input({
                 title:'Телефон',
                 type:'text',
                 name:'phone',
                 value:'8 (800) 555 35 35',
-            }).render(),
+            }),
         },
         save: true,
     };
@@ -86,19 +86,19 @@ export const DefaultData = (() => {
                 type:'password',
                 name:'oldPassword',
                 value:'',
-            }).render(),
+            }),
             newPassword: new Input({
                 title:'Новый пароль',
                 type:'password',
                 name:'newPassword',
                 value:'',
-            }).render(),
+            }),
             confirmPassword: new Input({
                 title:'Повторите новый пароль',
                 type:'password',
                 name:'',
                 value:'',
-            }).render(),
+            }),
         },
         save: true,
     }
@@ -109,27 +109,27 @@ export const DefaultData = (() => {
             email: new Line({
                 title:'Почта',
                 name:'pochta@russia.ru',
-            }).render(),
+            }),
             login: new Line({
                 title:'Логин',
                 name:'IvanIvanov',
-            }).render(),
+            }),
             firstName: new Line({
                 title:'Имя',
                 name:'Иван',
-            }).render(),
+            }),
             secondName: new Line({
                 title:'Фамилия',
                 name:'Иванов',
-            }).render(),
+            }),
             nickName: new Line({
                 title:'Имя в чате',
                 name:'Иван',
-            }).render(),
+            }),
             Phone: new Line({
                 title:'Телефон',
                 name:'8 (800) 555 35 35',
-            }).render(),
+            }),
         },
         links:[{
             link: '/edit',

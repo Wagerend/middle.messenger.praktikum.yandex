@@ -16,8 +16,8 @@ export class Line extends Block{
         super('div', props);
     }
 
-    render(): string {
-        return Template(this.props);
+    render(): DocumentFragment {
+        return this.compile(Template,this.props);
     }
 
 }

@@ -27,9 +27,10 @@ export class Block implements IBlock{
         props:Record<string, any>
     };
     _id: string;
-    props: Record<string,any> | null;
-    eventBus: () => EventBus;
     _element: HTMLElement;
+
+    props: Record<string,any> ;
+    eventBus: () => EventBus;
     children: Record<string, Block>;
 
     constructor(tagName: string = "div", propsAndChildren: Record<string,any> = {}){
@@ -57,17 +58,17 @@ export class Block implements IBlock{
     };
 
     _getChildren(propsAndChildren: Record<string, any>) {
+
         const children: Record<string, any> = {};
         const props: Record<string, any> = {};
 
-        Object.entries(propsAndChildren)
-            .forEach(([key, value]) => {
-                if (value instanceof Block) {
-                    children[key] = value;
-                } else {
-                    props[key] = value;
-                }
-            });
+        Object.entries(propsAndChildren).forEach(([key, value]) => {
+            if (value instanceof Block) {
+                children[key] = value;
+            } else {
+                props[key] = value;
+            }
+        });
 
         return {
             children,
@@ -75,7 +76,7 @@ export class Block implements IBlock{
         };
     }
 
-    _registerEvents(eventBus:EventBus): void{
+    _registerEvents(eventBus: EventBus): void{
         eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
         eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
         eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
@@ -83,7 +84,7 @@ export class Block implements IBlock{
     };
 
     _createResources(): void{
-        const {tagName} = this._data;
+        const { tagName } = this._data;
         this._element = this._createDocumentElement(tagName);
     };
 
@@ -102,6 +103,9 @@ export class Block implements IBlock{
             child.dispatchComponentDidMount();
         });
     }
+    dispatchComponentDidMount(){
+        this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+    }
 
     componentDidMount(): void{
         
@@ -112,7 +116,7 @@ export class Block implements IBlock{
     }
 
     _componentDidUpdate(oldProps: Record<string, any>, newProps: Record<string, any>){
-        const response = this.componentDidUpdate(oldProps,newProps);
+        const response = this.componentDidUpdate(oldProps, newProps);
         if(response){
             this._render();
         }
@@ -129,23 +133,60 @@ export class Block implements IBlock{
     }
 
     get element(){
-        return this.element;
+        return this._element;
     }
 
     _render(){
         const block:any = this.render();
-        this._element.innerHTML = block;
+        this._deleteEvents();
+        this._element.appendChild(block);
+        this._addEvents();
     }
     render(){}
+
+    _addEvents(){
+        const { events = {} } = this.props;
+        Object.keys(events).forEach(eventName => {
+            if(this._element){
+                if(eventName === 'blur'){
+                    const { children } = this._element;
+                    if(children !== undefined){
+                        const input = children[0].querySelector('input');
+                        input?.addEventListener(eventName, events[eventName]);
+                    }
+                }else{
+                    this._element.addEventListener(eventName, events[eventName]);
+                }
+            }
+        });
+    }
+    _deleteEvents(){
+        const { events = {} } = this.props;
+        
+        Object.keys(events).forEach( eventName =>{
+            if(this._element){
+                if(eventName === 'blur'){
+                    const { children } = this._element;
+                    if(children !== undefined){
+                        const input = children[0]?.querySelector('input');
+                        input?.removeEventListener(eventName, events[eventName]);
+                    }
+                }else{
+                    this._element.removeEventListener(eventName,events[eventName]);
+                }
+            }
+        });
+    }
     
     compile(template: (context: any) => string, props: any) {
+        const propsAndStubs = {...props};
 
         Object.entries(this.children).forEach(([key, child]) => {
-            props[key] = `<div data-id="id-${child._id}"></div>`
+            propsAndStubs[key] = `<div data-id="id-${child._id}"></div>`;
         });
 
-        const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
-        fragment.innerHTML = template(props);
+        const fragment = document.createElement('template') as HTMLTemplateElement;
+        fragment.innerHTML = template(propsAndStubs);
 
         Object.values(this.children).forEach(child => {
             const stub = fragment.content.querySelector(`[data-id="id-${child._id}"]`);
@@ -153,7 +194,7 @@ export class Block implements IBlock{
                 return
             }
 
-            stub.replaceWith(child.getContent()!);
+            stub.replaceWith(child.getContent());
         });
 
         return fragment.content;
@@ -164,9 +205,9 @@ export class Block implements IBlock{
         return new Proxy(props,{
 
             get(target,prop:string){
-                if(prop.startsWith('_')){
-                    throw new Error("Нет прав");
-                }
+                // if(prop.startsWith('_')){
+                //     throw new Error("Нет прав");
+                // }
 
                 const value = target[prop];
                 return (typeof value === 'function') ? value.bind(target) : value;
@@ -176,9 +217,8 @@ export class Block implements IBlock{
                 if(prop.startsWith('_')){
                     throw new Error("Нет прав");
                 }
-
                 target[prop] = value;
-                self.eventBus().emit(Block.EVENTS.FLOW_CDU,{...target},{target});
+                self.eventBus().emit(Block.EVENTS.FLOW_CDU, {...target}, {target});
                 return true;
             },
 

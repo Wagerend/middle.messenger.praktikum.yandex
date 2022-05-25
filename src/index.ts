@@ -10,7 +10,7 @@ const Routing = (() => {
         let url = getPathName();
         switch(url){
             case '/':
-                return Messenger.compile();
+                return new Messenger({}).render();
                 break;
             case '/login':
                 return new Form(FormData.login).render();
@@ -47,5 +47,5 @@ const Routing = (() => {
 })();
 const tag: HTMLElement | null = document.getElementById('TM');
 if(tag !== null){
-    tag.innerHTML = Routing.getTemplate();
+    tag.appendChild(Routing.getTemplate());
 }

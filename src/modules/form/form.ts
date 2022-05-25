@@ -4,6 +4,7 @@ import './form.scss';
 
 import {Input} from './component/input/input';
 import { Block } from '../../servises/block/block';
+import { regular } from '../../servises/validator/validate';
 
 Handlebars.registerPartial('login', Template);
 
@@ -17,12 +18,12 @@ type FormProps = {
 
 export class Form extends Block{
 
-    constructor(props: FormProps){
+    constructor(props: any){
         super('div', props);
     }
 
-    render(): string {
-        return Template(this.props);
+    render(): DocumentFragment {
+        return this.compile(Template, this.props);
     }
 
 }
@@ -33,26 +34,36 @@ export const DefaultData = (() => {
         title:'Логин',
         type:'text',
         name:'login',
-    }).render();
+        events:{
+            blur:function(){
+                console.log(this)
+                console.log(regular.login(this.value))
+            }
+        }
+    });
 
     let inputPassword = new Input({
         title:'Пароль',
         type:'password',
         name:'password',
-    }).render();
+        events:{
+            blur:function(){
+                console.log(regular.password(this.value))
+            }
+        }
+    });
 
     const login = {
+        formId: 'form-login',
         template:'login',
         title:'Вход',
-        inputBlock:{
-            inputLogin: inputLogin,
-            inputPassword: inputPassword,
-        },
         buttonTitle:'Авторизоваться',
         link:{
             title:'Нет аккаунта?',
             href:'/signin',
         },
+        inputLogin: inputLogin,
+        inputPassword: inputPassword,
     };
 
 
@@ -61,50 +72,64 @@ export const DefaultData = (() => {
         title:'Почта',
         type:'text',
         name:'email',
-    }).render();
+        events:{
+            blur:() => {console.log("email")}
+        }
+    });
 
     let inputFirstName = new Input({
         title:'Имя',
         type:'text',
         name:'first_name',
-    }).render();
+        events:{
+            blur:() => {console.log("FirstName")}
+        }
+    });
 
     let inputSecondName = new Input({
         title:'Фамилия',
         type:'text',
         name:'second_name',
-    }).render();
+        events:{
+            blur:() => {console.log("SecondName")}
+        }
+    });
 
     let inputPhone = new Input({
         title:'Телефон',
         type:'text',
         name:'phone',
-    }).render();
+        events:{
+            blur:() => {console.log("Phone")}
+        }
+    });
 
     let inputComplitePassword = new Input({
         title:'Пароль (ещё раз)',
         type:'password',
         name:'',
-    }).render();
+        events:{
+            blur:() => {console.log("ComplitePassword")}
+        }
+    });
 
 
     const signin = {
+        formId:'form-registration',
         template:'signin',
         title:'Регистрация',
-        inputBlock:{
-            inputEmail: inputEmail,
-            inputLogin: inputLogin,
-            inputFirstName: inputFirstName,
-            inputSecondName: inputSecondName,
-            inputPhone: inputPhone,
-            inputPassword: inputPassword,
-            inputComplitePassword: inputComplitePassword,
-        },
         buttonTitle:'Зарегистрироваться',
         link:{
             title:'Войти',
             href:'/login',
         },
+        inputEmail: inputEmail,
+        inputLogin: inputLogin,
+        inputFirstName: inputFirstName,
+        inputSecondName: inputSecondName,
+        inputPhone: inputPhone,
+        inputPassword: inputPassword,
+        inputComplitePassword: inputComplitePassword,
     };
 
     return{
