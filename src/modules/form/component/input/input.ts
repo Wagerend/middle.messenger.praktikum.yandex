@@ -28,6 +28,7 @@ type InputProps ={
     title: string;
     type: string;
     name: string;
+    error: string;
     events?: Record<string,Function>;
 }
 

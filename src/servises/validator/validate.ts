@@ -25,8 +25,8 @@ export const regular = (()=>{
         return regular.password.test(firstValue);
     }
     
-    const complitePassword = function(password){
-
+    const complitePassword = function(password1: string,password2: string){
+        return password1 === password2;
     }
 
     const phone = function(value: string){
@@ -42,6 +42,7 @@ export const regular = (()=>{
         email,
         login,
         password,
+        complitePassword,
         phone,
         message,
     }

@@ -5,6 +5,8 @@ import './form.scss';
 import {Input} from './component/input/input';
 import { Block } from '../../servises/block/block';
 import { regular } from '../../servises/validator/validate';
+import { Button } from './component/button/button';
+import { compileString } from 'sass';
 
 Handlebars.registerPartial('login', Template);
 
@@ -28,16 +30,20 @@ export class Form extends Block{
 
 }
 
+
 export const DefaultData = (() => {
 
     let inputLogin = new Input({
         title:'Логин',
         type:'text',
         name:'login',
+        error:'Некорректно введен логин',
         events:{
             blur:function(){
-                console.log(this)
-                console.log(regular.login(this.value))
+                const error = this.parentNode.querySelector('.ig-error');
+                if(error){
+                    error.hidden = (regular.login(this.value) || this.value === '');
+                }
             }
         }
     });
@@ -46,9 +52,13 @@ export const DefaultData = (() => {
         title:'Пароль',
         type:'password',
         name:'password',
+        error:'Некорректно введен пароль',
         events:{
             blur:function(){
-                console.log(regular.password(this.value))
+                const error = this.parentNode.querySelector('.ig-error');
+                if(error){
+                    error.hidden = (regular.password(this.value) || this.value === '');
+                }
             }
         }
     });
@@ -57,7 +67,22 @@ export const DefaultData = (() => {
         formId: 'form-login',
         template:'login',
         title:'Вход',
-        buttonTitle:'Авторизоваться',
+        button: new Button({
+            title:'Авторизоваться',
+            events:{
+                click: function(){
+                    const form = document.getElementById('form-login') as HTMLFormElement;
+                    if(form !== null){
+                        const data = new FormData(form);
+                        const dataForm = {
+                            login: data.get('login'),
+                            password: data.get('password')
+                        }
+                        console.log(dataForm)
+                    }
+                }
+            }
+        }),
         link:{
             title:'Нет аккаунта?',
             href:'/signin',
@@ -72,8 +97,14 @@ export const DefaultData = (() => {
         title:'Почта',
         type:'text',
         name:'email',
+        error:'Некорректно введена почта',
         events:{
-            blur:() => {console.log("email")}
+            blur:function(){
+                const error = this.parentNode.querySelector('.ig-error');
+                if(error){
+                    error.hidden = (regular.email(this.value) || this.value === '');
+                }
+            }
         }
     });
 
@@ -81,8 +112,14 @@ export const DefaultData = (() => {
         title:'Имя',
         type:'text',
         name:'first_name',
+        error:'Некорректно введено имя',
         events:{
-            blur:() => {console.log("FirstName")}
+            blur:function(){
+                const error = this.parentNode.querySelector('.ig-error');
+                if(error){
+                    error.hidden = (regular.fullName(this.value) || this.value === '');
+                }
+            }
         }
     });
 
@@ -90,8 +127,14 @@ export const DefaultData = (() => {
         title:'Фамилия',
         type:'text',
         name:'second_name',
+        error:'Некорректно введена фамилия',
         events:{
-            blur:() => {console.log("SecondName")}
+            blur:function(){
+                const error = this.parentNode.querySelector('.ig-error');
+                if(error){
+                    error.hidden = (regular.fullName(this.value) || this.value === '');
+                }
+            }
         }
     });
 
@@ -99,17 +142,32 @@ export const DefaultData = (() => {
         title:'Телефон',
         type:'text',
         name:'phone',
+        error:'Некорректно введен телефон',
         events:{
-            blur:() => {console.log("Phone")}
+            blur:function(){
+                const error = this.parentNode.querySelector('.ig-error');
+                if(error){
+                    error.hidden = (regular.phone(this.value) || this.value === '');
+                }
+            }
         }
     });
 
     let inputComplitePassword = new Input({
         title:'Пароль (ещё раз)',
         type:'password',
-        name:'',
+        name:'password_complite',
+        error:'Пароли не совпадают',
         events:{
-            blur:() => {console.log("ComplitePassword")}
+            blur:function(){
+                const error = this.parentNode.querySelector('.ig-error');
+                const form = document.getElementById('form-registration') as HTMLFormElement;
+                if(error && form){
+                    const data = new FormData(form);
+                    const password = data.get('password') as string;
+                    error.hidden = (regular.complitePassword(this.value, password) || this.value === '');
+                }
+            }
         }
     });
 
@@ -118,7 +176,27 @@ export const DefaultData = (() => {
         formId:'form-registration',
         template:'signin',
         title:'Регистрация',
-        buttonTitle:'Зарегистрироваться',
+        button: new Button({
+            title:'Зарегистрироваться',
+            events:{
+                click: function(){
+                    const form = document.getElementById('form-registration') as HTMLFormElement;
+                    if(form !== null){
+                        const data = new FormData(form);
+                        const dataForm = {
+                            email: data.get('email'),
+                            login: data.get('login'),
+                            firstName: data.get('first_name'),
+                            secondName: data.get('second_name'),
+                            phone: data.get('phone'),
+                            password: data.get('password'),
+                        }
+                        console.log(dataForm)
+                    }
+                }
+            }
+        }),
+        
         link:{
             title:'Войти',
             href:'/login',
