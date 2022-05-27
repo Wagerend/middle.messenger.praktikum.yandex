@@ -4,14 +4,23 @@
             <div class="user-photo"></div>
             <p class="user-name">{{nickName}}</p>
         </div>
-        <div class="user-info-block">
-            {{#each input}}
-                {{{this}}}
-            {{/each}}
-            {{#each info}}
-                {{{this}}}
-            {{/each}}
-        </div>
+        <form id="{{idForm}}" class="user-info-block">
+            {{{inputEmail}}}
+            {{{inputLogin}}}
+            {{{inputFirstName}}}
+            {{{inputSecondName}}}
+            {{{inputNickName}}}
+            {{{inputPhone}}}
+            {{{oldPassword}}}
+            {{{newPassword}}}
+            {{{confirmPassword}}}
+            {{{lineEmail}}}
+            {{{lineLogin}}}
+            {{{lineFirstName}}}
+            {{{lineSecondName}}}
+            {{{lineNickName}}}
+            {{{linePhone}}}
+        </form>
         <div class="user-edit-block">
             {{#each links}}
                 <div class="user-edit-item">
@@ -19,10 +28,8 @@
                 </div>
             {{/each}}
         </div>
-        {{#if save}}
-            <div class="user-save">
-                <button class="button-save">Сохранить</button>
-            </div>
-        {{/if}}
+        <div class="user-save">
+            {{{buttonSave}}}
+        </div>
     </div>
 </div>

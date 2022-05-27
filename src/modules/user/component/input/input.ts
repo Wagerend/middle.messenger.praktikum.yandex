@@ -10,6 +10,8 @@ type InputProps ={
     type: string;
     name: string;
     value: string;
+    error?: string;
+    events?: any;
 }
 
 export class Input extends Block{
@@ -19,7 +21,7 @@ export class Input extends Block{
     }
 
     render(): DocumentFragment {
-        return this.compile(Template,this.props);
+        return this.compile(Template, this.props);
     }
 
 }

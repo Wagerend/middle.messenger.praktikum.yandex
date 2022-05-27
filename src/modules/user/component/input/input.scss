@@ -1,8 +1,9 @@
 @import '../../../../index.scss';
 
 .user-info{
+    position: relative;
     border-bottom: 1px solid $background;
-    padding: 10px 0px;
+    padding: 20px 0px 20px 0 ;
     display: flex;
     justify-content: space-between;
 
@@ -26,7 +27,15 @@
         width: 50%;
     }
 
-    &:last-child{
-        border: none;
+    .info-error{
+        font-size: 10px;
+        color:$red;
+        position: absolute;
+        bottom: 3px;
     }
+
+    // &:last-child{
+    //     border: none;
+    // }
+
 }

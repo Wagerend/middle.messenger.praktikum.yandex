@@ -14,13 +14,17 @@
 
 ## Технологии
 ---
-- JavaScript
+- TypeScript
 - Scss
 - Handlebars
 - NodeJS Express
 - Parcel
 
-## [Pull Request](https://github.com/Wagerend/middle.messenger.praktikum.yandex/pull/2)
+## Анализаторы
+---
+- Eslint
+- Stylelint
+## [Pull Request](https://github.com/Wagerend/middle.messenger.praktikum.yandex/pull/3)
 
 ## Установка
 ---
