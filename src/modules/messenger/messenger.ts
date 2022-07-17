@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 import { Block } from '../../servises/block/block';
 import { regular } from '../../servises/validator/validate';
-import { Button } from './component/button/button';
+import { Button } from './component';
 import Template from './messenger.hbs';
 import './messenger.scss';
 

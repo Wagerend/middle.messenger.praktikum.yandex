@@ -2,11 +2,13 @@ import Handlebars from 'handlebars';
 import Template from './form.hbs';
 import './form.scss';
 
-import {Input} from './component/input/input';
+import { Input, Button } from './component';
+import { Link } from '../component';
+
 import { Block } from '../../servises/block/block';
 import { regular } from '../../servises/validator/validate';
-import { Button } from './component/button/button';
 import { compileString } from 'sass';
+import { router } from '../../servises/router/router';
 
 Handlebars.registerPartial('login', Template);
 
@@ -83,15 +85,48 @@ export const DefaultData = (() => {
                 }
             }
         }),
-        link:{
-            title:'Нет аккаунта?',
-            href:'/signin',
-        },
+        link: new Link({
+            class:'link-item',
+            text:'Нет аккаунта?',
+            events:{
+                click: function(){
+                    router.go('/signin');
+                }
+            }
+        }),
         inputLogin: inputLogin,
         inputPassword: inputPassword,
     };
 
+    let inputSignLogin = new Input({
+        title:'Логин',
+        type:'text',
+        name:'login',
+        error:'Некорректно введен логин',
+        events:{
+            blur:function(){
+                const error = this.parentNode.querySelector('.ig-error');
+                if(error){
+                    error.hidden = (regular.login(this.value) || this.value === '');
+                }
+            }
+        }
+    });
 
+    let inputSignPassword = new Input({
+        title:'Пароль',
+        type:'password',
+        name:'password',
+        error:'Некорректно введен пароль',
+        events:{
+            blur:function(){
+                const error = this.parentNode.querySelector('.ig-error');
+                if(error){
+                    error.hidden = (regular.password(this.value) || this.value === '');
+                }
+            }
+        }
+    });
 
     let inputEmail = new Input({
         title:'Почта',
@@ -196,17 +231,21 @@ export const DefaultData = (() => {
                 }
             }
         }),
-        
-        link:{
-            title:'Войти',
-            href:'/login',
-        },
+        link: new Link({
+            class:'link-item',
+            text:'Войти',
+            events:{
+                click: function(){
+                    router.go('/login');
+                }
+            }
+        }),
         inputEmail: inputEmail,
-        inputLogin: inputLogin,
+        inputLogin: inputSignLogin,
         inputFirstName: inputFirstName,
         inputSecondName: inputSecondName,
         inputPhone: inputPhone,
-        inputPassword: inputPassword,
+        inputPassword: inputSignPassword,
         inputComplitePassword: inputComplitePassword,
     };
 

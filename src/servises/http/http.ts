@@ -1,20 +1,11 @@
+import { queryStringify } from "../../utils";
+
 const METHODS = {
 	GET: 'GET',
     POST: 'POST',
     PUT: 'PUT',
     DELETE: 'DELETE',
 };
-
-function queryStringify(data) {
-  if(!data){
-    return '';
-  }
-  const param = Object.entries(data);
-  return param.reduce(
-    (query, [key, value], index)=> query.concat(`${key}=${value}${index === param.length-1? '':'&'}`),
-    '?'
-  );
-}
 
 class HTTPTransport {
 		get = (url, options:Record<string,any> = {}) => {

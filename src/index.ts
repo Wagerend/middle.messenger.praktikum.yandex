@@ -2,50 +2,16 @@ import {Form, DefaultData as FormData} from './modules/form/form';
 import {User, DefaultData as UserData} from './modules/user/user';
 import {Error, DefaultData as ErrorData }from './modules/error/error';
 import {Messenger}  from './modules/messenger/messenger';
+import {router} from './servises/router/router';
 
 
-const Routing = (() => {
-
-    const getTemplate = function():any{
-        let url = getPathName();
-        switch(url){
-            case '/':
-                return new Messenger({}).render();
-                break;
-            case '/login':
-                return new Form(FormData.login).render();
-                break;
-            case '/signin': 
-                return new Form(FormData.signin).render();
-                break;
-            case '/user': 
-                return new User(UserData.user).render();
-                break;
-            case '/edit': 
-                return new User(UserData.editInfo).render();
-                break;
-            case '/editPassword': 
-                return new User(UserData.editPassword).render();
-                break;
-            case '/500': 
-                return new Error(ErrorData.serverError).render();
-                break;
-            default:
-                return new Error(ErrorData.notFound).render();
-                break;
-        };
-    };
-
-    const getPathName = function(){
-        return window.location.pathname;
-    };
-
-    return{
-        getTemplate,
-        getPathName,
-    };
-})();
-const tag: HTMLElement | null = document.getElementById('TM');
-if(tag !== null){
-    tag.appendChild(Routing.getTemplate());
-}
+router
+    .use('/', Messenger, {})
+    .use('/login', Form, FormData.login)
+    .use('/signin', Form, FormData.signin)
+    .use('/user', User, UserData.user)
+    .use('/edit', User, UserData.editInfo)
+    .use('/editPassword', User, UserData.editPassword)
+    .use('/500', Error, ErrorData.serverError)
+    .use('*', Error, ErrorData.notFound)
+    .start();

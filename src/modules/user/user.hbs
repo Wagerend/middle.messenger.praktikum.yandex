@@ -1,7 +1,9 @@
 <div class="container user">
     <div class="user-block">
         <div class="user-title-block">
-            <div class="user-photo"></div>
+            <div class="user-photo">
+                <img src="{{avatar}}">
+            </div>
             <p class="user-name">{{nickName}}</p>
         </div>
         <form id="{{idForm}}" class="user-info-block">
@@ -21,13 +23,21 @@
             {{{lineNickName}}}
             {{{linePhone}}}
         </form>
-        <div class="user-edit-block">
-            {{#each links}}
+
+        {{#if linkFlag}}
+            <div class="user-edit-block">
                 <div class="user-edit-item">
-                    <a class="user-edit-text {{this.class}}" href="{{this.link}}">{{this.text}}</a>
+                    {{{linkEditInfo}}}
                 </div>
-            {{/each}}
-        </div>
+                <div class="user-edit-item">
+                    {{{linkEditPassword}}}
+                </div>
+                <div class="user-edit-item">
+                    {{{linkLeave}}}
+                </div>
+            </div>
+        {{/if}}
+
         <div class="user-save">
             {{{buttonSave}}}
         </div>

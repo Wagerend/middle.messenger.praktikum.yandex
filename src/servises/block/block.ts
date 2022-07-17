@@ -238,7 +238,7 @@ export class Block implements IBlock{
     }
 
     hide(){
-        this.getContent().style.display = "none";
+        this.getContent().remove();
     }
 
 }

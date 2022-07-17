@@ -2,11 +2,14 @@ import Handlebars from 'handlebars';
 import Template from './user.hbs';
 import './user.scss';
 
-import { Line } from './component/line/line';
-import { Input } from './component/input/input';
-import { Button } from './component/button/button';
+import { Line, Input, Button } from './component';
+
 import { Block } from '../../servises/block/block';
 import { regular } from '../../servises/validator/validate';
+import { Link } from '../component';
+import { router } from '../../servises/router/router';
+
+const Avatar = require('./../../icon/Union.svg') as string;
 
 Handlebars.registerPartial('user', Template);
 
@@ -126,6 +129,7 @@ export const DefaultData = (() => {
 
     let editInfo = {
         nickName:'Иван',
+        avatar:Avatar,
         idForm:'edit-info',
         inputEmail: inputEmail,
         inputLogin: inputLogin,
@@ -199,6 +203,7 @@ export const DefaultData = (() => {
 
     let editPassword = {
         nickName:'Иван',
+        avatar:Avatar,
         idForm:'edit-password',
         oldPassword: oldPassword,
         newPassword: newPassword,
@@ -252,27 +257,43 @@ export const DefaultData = (() => {
         name:'8 (800) 555 35 35',
     });
 
-
-
     let user = {
         nickName:'Иван',
+        avatar:Avatar,
         lineEmail: lineEmail,
         lineLogin: lineLogin,
         lineFirstName: lineFirstName,
         lineSecondName: lineSecondName,
         lineNickName: lineNickName,
         linePhone:linePhone,
-        links:[{
-            link: '/edit',
-            text: 'Изменить данные',
-        },{
-            link: '/editPassword',
-            text: 'Изменить пароль',
-        },{
-            link: '/login',
-            text: 'Выйти',
-            class: 'red',
-        }],
+        linkFlag:true,
+        linkEditInfo:new Link({
+            class:'user-edit-text',
+            text:'Изменить данные',
+            events:{
+                click:function(){
+                    router.go('/edit');
+                }
+            }
+        }),
+        linkEditPassword:new Link({
+            class:'user-edit-text',
+            text:'Изменить пароль',
+            events:{
+                click:function(){
+                    router.go('/editPassword');
+                }
+            }
+        }),
+        linkLeave:new Link({
+            class:'user-edit-text red',
+            text:'Выйти',
+            events:{
+                click:function(){
+                    router.go('/login');
+                }
+            }
+        })
     };
 
     return{
