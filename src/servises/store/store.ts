@@ -1,4 +1,4 @@
-import { set } from "../../utils/set";
+import { set } from "../../utils";
 import { EventBus } from "../block/event-bus";
 
 type Indexed<T = any> = {
